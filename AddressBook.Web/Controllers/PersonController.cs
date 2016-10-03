@@ -25,13 +25,14 @@ namespace AddressBook.Web.Controllers
             _personService = personService;
         }
 
-        // GET: api/Person
+        [HttpGet]
         [Route("GetAll")]
         public IQueryable<Person> GetPeople()
         {
             return _personService.GetPersons().AsQueryable();
         }
 
+        [HttpGet]
         [Route("GetById/{id}")]
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> GetPerson([FromUri]int id)
@@ -45,6 +46,7 @@ namespace AddressBook.Web.Controllers
             return Ok(person);
         }
 
+        [HttpPost]
         [ResponseType(typeof(void))]
         [Route("Update/{id}")]
         public async Task<IHttpActionResult> PutPerson([FromUri]int id, Person person)
@@ -64,6 +66,7 @@ namespace AddressBook.Web.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [HttpPost]
         [Route("Create")]
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> PostPerson(Person person)
@@ -78,6 +81,7 @@ namespace AddressBook.Web.Controllers
             return Ok(person);
         }
 
+        [HttpPost]
         [Route("DeleteById/{id}")]
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> DeletePerson([FromUri]int id)

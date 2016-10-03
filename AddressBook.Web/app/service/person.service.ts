@@ -13,7 +13,7 @@ export class PersonService {
 
 
     public _saveUrl: string = 'api/Person/Create/';
-    public _updateUrl: string = 'api/Person/Update/';
+    public _updateUrl: string = 'api/Person/Update';
     public _getUrl: string = '/api/Person/GetAll/';
     public _getByIdUrl: string = 'api/person/GetById';
     public _deleteByIdUrl: string = 'api/Person/DeleteById/';
@@ -50,19 +50,20 @@ export class PersonService {
         headers.append('Content-Type', 'application/json');
 
         //http.post(url: string, body: string, options ?: RequestOptionsArgs): Observable<Response>
-        return this.http.put(updateUrl, body, { headers: headers });
+        return this.http.post(updateUrl, body, { headers: headers });
                     
     }
 
     //Delete
-    deletePerson(id: number | string): Observable<string> {
+    deletePerson(id: number | string): Observable<any> {
         //debugger
         var deleteByIdUrl = this._deleteByIdUrl + '/' + id
+        var body = JSON.stringify(id);
 
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
         //http.post(url: string, options ?: RequestOptionsArgs): Observable<Response>
-        return this.http.delete(deleteByIdUrl)
-            .map(response => response.json())
-            .catch(this.handleError);
+        return this.http.post(deleteByIdUrl, body, { headers: headers });
     }
 
     private handleError(error: Response) {
